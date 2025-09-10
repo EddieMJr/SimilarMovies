@@ -1,19 +1,19 @@
-// grabs export from search and similar js pages & imports them here
-const search = require('./utils/search.js')
-const similar = require('./utils/similar.js')
+// grabs export from geocode and forecast js pages ans imports them here
+const search = require('./utils/search')
+const similar = require('./utils/sim')
 
-const movie = process.argv[2]
+const address = process.argv[2]
 
 // all code to catch errors that may come through when finding location
-if (!movie) {
-    console.log('please provide a movie')
+if (!address) {
+    console.log('please provide an address')
 } else {
-    search(movie, (error, {lat, long, location} = {}) => {
+    geocode(address, (error, {lat, long, location} = {}) => {
     if (error) {
         return console.log(error)
     }
 
-    similar(lat, long, (error, forecastData) => {
+    forecast(lat, long, (error, forecastData) => {
         if (error) {
         return console.log(error)
     }
