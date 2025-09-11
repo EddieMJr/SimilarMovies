@@ -1,26 +1,29 @@
-// grabs export from geocode and forecast js pages ans imports them here
+// grabs export from search and similar js pages and imports them here
 const search = require('./utils/search')
 const similar = require('./utils/sim')
 
-const address = process.argv[2]
+const title = process.argv[2]
 
-// all code to catch errors that may come through when finding location
-if (!address) {
-    console.log('please provide an address')
+// all code to catch errors that may come through when finding movies
+if (!title) {
+  console.log('Please provide a movie title')
 } else {
-    geocode(address, (error, {lat, long, location} = {}) => {
+  search(title, (error, { movieId, title: movieTitle } = {}) => {
     if (error) {
-        return console.log(error)
+      return console.log('Search error:', error)
     }
 
-    forecast(lat, long, (error, forecastData) => {
-        if (error) {
-        return console.log(error)
-    }
-        console.log(location)
-        console.log(forecastData)
+    similar(movieId, (error, similarMovies) => {
+      if (error) {
+        return console.log('Similar movies error:', error)
+      }
+
+      console.log(`Similar movies to "${movieTitle}":`)
+      similarMovies.forEach(movie => {
+        console.log(`- ${movie.title} (${movie.release_date})`)
+      })
     })
-})
+  })
 }
 
-console.log(process.argv)
+console.log('Arguments:', process.argv)
