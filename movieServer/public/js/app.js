@@ -1,32 +1,66 @@
 console.log('Client side js file is loaded!')
 
-const weatherForm = document.querySelector('form')
+const movieForm = document.querySelector('form')
 const search = document.querySelector('input')
 const messOne = document.querySelector('#errorMess')
-const messTwo = document.querySelector('#location')
+const messTwo = document.querySelector('#movies')
+const movie = document.querySelector('#movieInput')
+const movieSim = document.querySelector('#simGrid')
 
-// allows weather for location input to be displayed after pressing the button
-weatherForm.addEventListener('submit', (e) => {
+// allows movie for input to be displayed after pressing the button
+movieForm.addEventListener('submit', (e) => {
     // stops page from resetting instantly after button press (form submition)
     e.preventDefault()
 
-    const location = search.value
+    const title = search.value
 
     // Shows loading message on index.hbs after button press
-    messOne.textContent = 'loading...'
+    messOne.textContent = 'Loading...'
     messTwo.textContent = ''
+    movie.innerHTML = ''
+    movieSim.innerHTML = ''
 
-    // grabs information from weather link and adding new location
-    fetch('http://localhost:3000/weather?address=' + location).then ((response) => {
-    response.json().then((data) => {
-        // if input isnt a location, show error
-        if (data.error) {
-            messOne.textContent = data.error
-            // if input is a location, show forecast and location
-        } else {
-            messOne.textContent = data.location
-            messTwo.textContent = data.forecast
-        }
+    // fetch the movie that the user inputted
+    fetch('/search?title=' + encodeURIComponent(title)).then((response) => {
+        response.json().then((data) => {
+            if (data.error) {
+                messOne.textContent = data.error
+            } else {
+                const movieData = data.results[0]
+                const posterUrl = movieData.poster_path
+                const movieName = movieData.title
+
+                messOne.textContent = `Movie Title: ${movieName}`
+                messTwo.textContent = `Movies similar to ${movieName}:`
+
+                movie.insertAdjacentHTML('beforeend', `
+                    <div>
+                        <img src="${posterUrl}" id="moviePoster" alt="${movieName}">
+                    </div>
+                `)
+
+                // fetch similar movies
+                fetch('/similar?id=' + movieData.id).then((response) => {
+                    response.json().then((simData) => {
+                        if (simData.error) {
+                            movieSim.textContent = simData.error
+                        } else {
+                            const similarMovies = simData.similarMovies
+                            similarMovies.forEach(sim => {
+                                const simPoster = sim.poster_path
+
+
+                                movieSim.insertAdjacentHTML('beforeend', `
+                                    <div class="sim-card">
+                                        <img src="${simPoster}" alt="${sim.title}">
+                                        <p><b>${sim.title}</b></p>
+                                    </div>
+                                `)
+                            })
+                        }
+                    })
+                })
+            }
+        })
     })
-})
 })

@@ -12,7 +12,11 @@ const search = (title, callback) => {
     .then(res => res.json())
     .then(json => {
         if (json.results && json.results.length > 0) {
-            callback(null, json.results[0].title)
+            callback(null, {
+              title: json.results[0].title,
+              poster_path: json.results[0].poster_path,
+              id: json.results[0].id
+            } )
         } else {
             callback ('No Movie Found.')
         }
