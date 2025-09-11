@@ -8,6 +8,7 @@ const title = process.argv[2]
 if (!title) {
   console.log('Please provide a movie title')
 } else {
+
   search(title, (error, { movieId, title: movieTitle } = {}) => {
     if (error) {
       return console.log('Search error:', error)
@@ -26,4 +27,4 @@ if (!title) {
   })
 }
 
-console.log('Arguments:', process.argv)
+console.log(process.argv)

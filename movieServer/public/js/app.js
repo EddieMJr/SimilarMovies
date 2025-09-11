@@ -26,16 +26,18 @@ movieForm.addEventListener('submit', (e) => {
             if (data.error) {
                 messOne.textContent = data.error
             } else {
-                const movieData = data.results[0]
-                const posterUrl = movieData.poster_path
+                const movieData = data.movie
+                const posterUrl = `https://image.tmdb.org/t/p/w185/${movieData.poster_path}`
                 const movieName = movieData.title
+                const desc = movieData.overview
 
-                messOne.textContent = `Movie Title: ${movieName}`
-                messTwo.textContent = `Movies similar to ${movieName}:`
+                messOne.innerHTML = `Movie Title: <b>${movieName}</b>`
+                messTwo.innerHTML = `Movies similar to <b>${movieName}</b>:`
 
                 movie.insertAdjacentHTML('beforeend', `
                     <div>
                         <img src="${posterUrl}" id="moviePoster" alt="${movieName}">
+                        <p><b>Overview</b>: ${desc}</p>
                     </div>
                 `)
 
