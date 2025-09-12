@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // allows app to search, find & display the movie the user inputted
 const search = (title, callback) => {
   const url = `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=1`;
