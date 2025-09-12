@@ -21,7 +21,7 @@ movieForm.addEventListener('submit', (e) => {
     movieSim.innerHTML = ''
 
     // fetch the movie that the user inputted
-    fetch('/search?title=' + encodeURIComponent(title)).then((response) => {
+    fetch(`/search?title=${encodeURIComponent(title)}`).then((response) => {
         response.json().then((data) => {
             if (data.error) {
                 messOne.textContent = data.error
@@ -42,7 +42,7 @@ movieForm.addEventListener('submit', (e) => {
                 `)
 
                 // fetches similar movies to the one the user had inputted
-                fetch('/similar?id=' + movieData.id).then((response) => {
+                fetch(`/similar?id=${movieData.id}`).then((response) => {
                     response.json().then((simData) => {
                         if (simData.error) {
                             movieSim.textContent = simData.error
