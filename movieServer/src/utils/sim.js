@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const similar = (movieId, callback) => {
   const url = `https://api.themoviedb.org/3/movie/${movieId}/similar?language=en-US&page=1`;
   const options = {
