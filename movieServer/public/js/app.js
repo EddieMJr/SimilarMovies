@@ -27,7 +27,7 @@ movieForm.addEventListener('submit', (e) => {
                 messOne.textContent = data.error
             } else {
                 const movieData = data.movie
-                const posterUrl = `https://image.tmdb.org/t/p/w185/${movieData.poster_path}`
+                const posterUrl = `https://image.tmdb.org/t/p/w400/${movieData.poster_path}`
                 const movieName = movieData.title
                 const desc = movieData.overview
 
@@ -49,15 +49,17 @@ movieForm.addEventListener('submit', (e) => {
                         } else {
                             const similarMovies = simData.similarMovies
                             similarMovies.forEach(sim => {
-                                const simPoster = sim.poster_path
+                                const simPosterUrl = sim.poster_path 
+                                    ? `https://image.tmdb.org/t/p/w185/${sim.poster_path}`
+                                    : 'https://ih1.redbubble.net/image.533910704.5853/raf,185x185,075,t,fafafa:ca443f4786.u3.jpg'
 
 
                                 movieSim.insertAdjacentHTML('beforeend', `
-                                    <div class="sim-card">
-                                        <img src="${simPoster}" alt="${sim.title}">
+                                    <div class="simMovie">
+                                        <img src="${simPosterUrl}" alt="${sim.title}">
                                         <p><b>${sim.title}</b></p>
-                                    </div>
-                                `)
+                                        <p id='topOverview'>${sim.overview}</p>
+                                    </div>`)
                             })
                         }
                     })

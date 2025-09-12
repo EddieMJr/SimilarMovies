@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/EddieMJr/SimilarMovies#readme",
   "dependencies": {
+    "dotenv": "^17.2.2",
     "request": "^2.88.2"
   }
 }
