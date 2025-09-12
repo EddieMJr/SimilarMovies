@@ -1,6 +1,6 @@
 const path = require('path')
+require('dotenv').config({ path: path.join(__dirname, '../../.env') })
 const express = require('express')
-const hbs = require('hbs')
 const search = require('./utils/search')
 const similar = require('./utils/sim')
 
@@ -8,22 +8,12 @@ const app = express()
 
 // define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
-const viewsPath = path.join(__dirname, '../templates/views')
-const partialsPath = path.join(__dirname, '../templates/partials')
-
-// setup handlebars engine and views movies
-app.set('view engine', 'hbs')
-app.set('views', viewsPath)
-hbs.registerPartials(partialsPath)
 
 // setup static directory to serve
 app.use(express.static(publicDirectoryPath))
 
 app.get('', (req, res) => {
-    res.render('index', {
-        title: 'Similar Films',
-        name: 'Eddie Millsaps Jr'
-    })
+    res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
 app.get('/search', (req, res) => {
@@ -52,19 +42,16 @@ app.get('/similar', (req, res) => {
       return res.send({ error })
     }
 
+    console.log('Similar Movies: ', similarMovies)
     res.send({ similarMovies })
   })
 })
 
 
 app.use((req, res) => {
-    res.status(404).render('404', {
-        errorMessage: 'Page not found!',
-        title: '404',
-        name: 'Eddie Millsaps Jr'
-    })
+  res.status(404).sendFile(path.join(__dirname, '../public/404.html'))
 })
 
 app.listen(3000, () => {
-    console.log('The server is up on port 3000.')
+     console.log('The server is up on port 3000.')
 })

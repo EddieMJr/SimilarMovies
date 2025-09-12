@@ -1,16 +1,23 @@
 body {
-    color: #cd853f;
-    font-family: arial;
-    max-width: 650px;
+    font-family: Verdana, sans-serif;
+    background-color: #000000;
+    color: #e72f2f;
+    max-width: 950rem;
     margin: 0 auto;
     padding: 0 16px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    text-align: center;
 }
 
 .mainContent {
     flex-grow: 1;
+    align-content: center;
+}
+
+form {
+    margin-bottom: 3rem;
 }
 
 footer {
@@ -36,8 +43,8 @@ a {
     text-decoration: none;
 }
 
-.portrait {
-    width: 250px;
+img {
+    border-radius: 2rem;
 }
 
 input {
@@ -51,4 +58,46 @@ button {
     background: #888888;
     color: white;
     padding: 8px;
+}
+
+button:hover {
+    background: #e72f2f;
+    border: 1px solid #e72f2f;
+}
+
+#simGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.simMovie {
+    flex: 1;
+    background-color: #111;
+    color: white;
+    border: 1px solid #444;
+    padding: 12px;
+    border-radius: 8px;
+    width: 180px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#errorMess {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#movies {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#topOverview {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-bottom: 5rem;
 }
