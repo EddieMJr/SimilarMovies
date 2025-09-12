@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 // allows the app to display similar movies to the one the user inputted based on the id of the movie
 const similar = (movieId, callback) => {
   const url = `https://api.themoviedb.org/3/movie/${movieId}/similar?language=en-US&page=1`;
