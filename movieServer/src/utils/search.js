@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const search = (title, callback) => {
   const url = `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=1`;
   const options = {
