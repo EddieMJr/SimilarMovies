@@ -41,7 +41,7 @@ movieForm.addEventListener('submit', (e) => {
                     </div>
                 `)
 
-                // fetch similar movies
+                // fetches similar movies to the one the user had inputted
                 fetch('/similar?id=' + movieData.id).then((response) => {
                     response.json().then((simData) => {
                         if (simData.error) {
@@ -49,11 +49,12 @@ movieForm.addEventListener('submit', (e) => {
                         } else {
                             const similarMovies = simData.similarMovies
                             similarMovies.forEach(sim => {
+                                //if the endpoint has a null poster_path property, it will show an image to tell that the image isnt found
                                 const simPosterUrl = sim.poster_path 
                                     ? `https://image.tmdb.org/t/p/w185/${sim.poster_path}`
                                     : 'https://ih1.redbubble.net/image.533910704.5853/raf,185x185,075,t,fafafa:ca443f4786.u3.jpg'
 
-
+                                // output of the similar on the html file
                                 movieSim.insertAdjacentHTML('beforeend', `
                                     <div class="simMovie">
                                         <img src="${simPosterUrl}" alt="${sim.title}">

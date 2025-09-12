@@ -69,9 +69,8 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 3rem;
-    justify-content: center;
+    justify-content:space-between;
     margin-top: 20px;
-    align-items: center;
 }
 
 .simMovie {
@@ -79,7 +78,7 @@ button:hover {
     background-color: #111;
     color: white;
     border: 1px solid #444;
-    padding: 12px;
+    padding: 1rem;
     border-radius: 8px;
     width: 180px;
     box-sizing: border-box;

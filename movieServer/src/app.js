@@ -16,6 +16,7 @@ app.get('', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
+// outputs error messages if errors occur during searching for movie
 app.get('/search', (req, res) => {
   const title = req.query.title
   if (!title) {
@@ -31,6 +32,7 @@ app.get('/search', (req, res) => {
   })
 })
 
+// outputs error messages if errors occur during searching for similar movies
 app.get('/similar', (req, res) => {
   const movieId = req.query.id
   if (!movieId) {
@@ -47,7 +49,7 @@ app.get('/similar', (req, res) => {
   })
 })
 
-
+// if a 404 error happens, the 404.html page appears
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../public/404.html'))
 })
